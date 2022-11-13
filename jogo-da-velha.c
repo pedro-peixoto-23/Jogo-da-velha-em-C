@@ -14,8 +14,7 @@ void imprimirJogoDaVelha() {
         printf("  -------------\n");
         printf("2 | %c | %c | %c | 2\n", listaJogoDaVelha[2][0], listaJogoDaVelha[2][1], listaJogoDaVelha[2][2]);
         printf("  -------------");
-        printf("\n    0   1   2 \n");
-        
+        printf("\n    0   1   2 \n");  
 }
 
 char verificarJogadorAtual() {
@@ -96,6 +95,7 @@ int verificarVencedorOuEmpate() {
         verificador = 1;
     } else if (listaJogoDaVelha[2][0] == JogadorAtual && listaJogoDaVelha[1][1] == JogadorAtual && listaJogoDaVelha[0][2] == JogadorAtual) {
         verificador = 1;
+    // Empate
     } else if (!(listaJogoDaVelha[0][0] == ' ') && !(listaJogoDaVelha[0][1] == ' ') && !(listaJogoDaVelha[0][2] == ' ') && !(listaJogoDaVelha[1][0] == ' ') && !(listaJogoDaVelha[1][1] == ' ') && !(listaJogoDaVelha[1][2] == ' ') && !(listaJogoDaVelha[2][0] == ' ') && !(listaJogoDaVelha[2][1] == ' ') && !(listaJogoDaVelha[2][2] == ' ')) {
         verificador = 2;
     }
