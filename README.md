@@ -1,1 +1,3 @@
-# jogo_da_velha_em_c
+# Jogo da velha em C
+
+## Discente: Pedro Peixoto Viana de Oliveira.
