@@ -1,9 +1,13 @@
+// Discente: Pedro Peixoto Viana de Oliveira.
+
 #include <stdio.h>
 #include<conio.h>
 
 char listaJogoDaVelha[3][3] = {{' ',' ',' '},{' ',' ',' '},{' ',' ',' '}};
 int qtdJogadas = 0;
 int coordenadaXY[2];
+int pontuacaoXO[3] = {0, 0, 0}; // jogador x, jogador o, empate
+
 
 void imprimirJogoDaVelha() {
         printf("    0   1   2 \n");
@@ -17,13 +21,22 @@ void imprimirJogoDaVelha() {
         printf("\n    0   1   2 \n");  
 }
 
+
+void imprimirPontuacao() {
+    printf("-------------------------------------------\n");
+    printf("| Jogador X: %d | Jogador O: %d | Empate: %d |\n", pontuacaoXO[0], pontuacaoXO[1], pontuacaoXO[2]);
+    printf("-------------------------------------------\n\n");
+}
+
+
 char verificarJogadorAtual() {
     if (qtdJogadas % 2 == 0) {
-        return 'x';
+        return 'X';
     } else {
         return 'O';
     }
 }
+
 
 void imprimirDadosDaPartida() {
     printf("\n- Qtd. Jogadas -> %d\n", qtdJogadas);
@@ -31,11 +44,14 @@ void imprimirDadosDaPartida() {
     printf("- Jogador atual -> %c\n", jogadorAtual);
 }
 
+
 void imprimirTelaJogo() {
+    imprimirPontuacao();
     imprimirJogoDaVelha();
     verificarJogadorAtual();
     imprimirDadosDaPartida();
 }
+
 
 int verificarCoordenadaDoUsuario() {
     if (coordenadaXY[0] > 2 || coordenadaXY[0] < 0) {
@@ -47,27 +63,17 @@ int verificarCoordenadaDoUsuario() {
     }
 }
 
+
 void inserirElementoNaLista() {
     char JogadorAtual = verificarJogadorAtual();
     
-    if (coordenadaXY[0] == 0 && coordenadaXY[1] == 0) {
-        listaJogoDaVelha[0][0] = JogadorAtual;
-    } else if (coordenadaXY[0] == 0 && coordenadaXY[1] == 1) {
-        listaJogoDaVelha[0][1] = JogadorAtual;
-    } else if (coordenadaXY[0] == 0 && coordenadaXY[1] == 2) {
-        listaJogoDaVelha[0][2] = JogadorAtual;
-    } else if (coordenadaXY[0] == 1 && coordenadaXY[1] == 0) {
-        listaJogoDaVelha[1][0] = JogadorAtual;
-    } else if (coordenadaXY[0] == 1 && coordenadaXY[1] == 1) {
-        listaJogoDaVelha[1][1] = JogadorAtual;
-    } else if (coordenadaXY[0] == 1 && coordenadaXY[1] == 2) {
-        listaJogoDaVelha[1][2] = JogadorAtual;
-    } else if (coordenadaXY[0] == 2 && coordenadaXY[1] == 0) {
-        listaJogoDaVelha[2][0] = JogadorAtual;
-    } else if (coordenadaXY[0] == 2 && coordenadaXY[1] == 1) {
-        listaJogoDaVelha[2][1] = JogadorAtual;
-    }else if (coordenadaXY[0] == 2 && coordenadaXY[1] == 2) {
-        listaJogoDaVelha[2][2] = JogadorAtual;
+    for (int i = 0; i < 3; i++) {
+        for (int j = 0; j < 3; j++) {
+            if (coordenadaXY[0] == i && coordenadaXY[1] == j) {
+                listaJogoDaVelha[i][j] = JogadorAtual;
+                break;
+            }
+        }
     }
 }
 
@@ -101,12 +107,16 @@ int verificarVencedorOuEmpate() {
     }
     
     if (verificador == 1) {
+        if (verificarJogadorAtual() == 'X') pontuacaoXO[0]++; else pontuacaoXO[1]++;
         limparTela();
+        imprimirPontuacao();
         imprimirJogoDaVelha();
         printf("\nTemos um vencedor: o jogador %c ganhou o jogo!", JogadorAtual);
         return 1;
     } else if (verificador == 2) {
+        pontuacaoXO[2]++;
         limparTela();
+        imprimirPontuacao();
         imprimirJogoDaVelha();
         printf("\nOcorreu um empate: nenhum dos jogadores venceu.");
         return 1;
@@ -115,24 +125,24 @@ int verificarVencedorOuEmpate() {
     }
 }
 
+
 void limparTela() {
     for (int i = 0; i < 50; i++) {
         printf("\n");  
     }
 }
 
+
 void reiniciarJogo() {
     qtdJogadas = 0;
-    listaJogoDaVelha[0][0] = ' ';
-    listaJogoDaVelha[0][1] = ' ';
-    listaJogoDaVelha[0][2] = ' ';
-    listaJogoDaVelha[1][0] = ' ';
-    listaJogoDaVelha[1][1] = ' ';
-    listaJogoDaVelha[1][2] = ' ';
-    listaJogoDaVelha[2][0] = ' ';
-    listaJogoDaVelha[2][1] = ' ';
-    listaJogoDaVelha[2][2] = ' ';
+    
+    for (int i = 0; i < 3; i++) {
+        for (int j = 0; j < 3; j++) {
+            listaJogoDaVelha[i][j] = ' '; // limpando o bloco
+        }
+    }
 }
+
 
 int main() {
     
@@ -151,7 +161,7 @@ int main() {
             continue;
         }
         
-        if ((listaJogoDaVelha[coordenadaXY[0]][coordenadaXY[1]] == ' ')) { // ja existe na lista
+        if ((listaJogoDaVelha[coordenadaXY[0]][coordenadaXY[1]] == ' ')) { // verificando se já está preenchido
         
             inserirElementoNaLista();
             
