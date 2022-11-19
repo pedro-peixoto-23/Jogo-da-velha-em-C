@@ -78,6 +78,13 @@ void inserirElementoNaLista() {
 }
 
 
+void limparTela() {
+    for (int i = 0; i < 50; i++) {
+        printf("\n");  
+    }
+}
+
+
 int verificarVencedorOuEmpate() {
     char JogadorAtual = verificarJogadorAtual();
     int verificador = 0;
@@ -122,13 +129,6 @@ int verificarVencedorOuEmpate() {
         return 1;
     } else {
         return 0;
-    }
-}
-
-
-void limparTela() {
-    for (int i = 0; i < 50; i++) {
-        printf("\n");  
     }
 }
 
