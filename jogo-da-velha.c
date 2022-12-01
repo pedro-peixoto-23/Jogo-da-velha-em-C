@@ -30,11 +30,16 @@ void imprimirPontuacao() {
 
 
 char verificarJogadorAtual() {
-    if (qtdJogadas % 2 == 0) {
-        return 'X';
-    } else {
-        return 'O';
+    int totalDePontos = pontuacaoXO[0] + pontuacaoXO[1] + pontuacaoXO[2];
+    
+    if (totalDePontos % 2 == 0) { // se o número de pontos for par, então quem começa é o X
+        if (qtdJogadas % 2 == 0) return 'X'; // quem começa é o X
+        else return 'O';
+    } else { // se o número de pontos for ímpar, então quem começa é o O e depois o X e depois o O...
+        if (qtdJogadas % 2 == 0) return 'O'; // quem começa é o O
+        else return 'X';
     }
+    
 }
 
 
