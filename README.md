@@ -1,3 +1,4 @@
 # Jogo da velha em C
 
-## Discente: Pedro Peixoto Viana de Oliveira.
+## Autor: Pedro Peixoto Viana de Oliveira
+## Ano: 2022
